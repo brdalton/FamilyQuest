@@ -1,0 +1,80 @@
+{
+  "family": [
+    {
+      "id": "brad",
+      "name": "Brad",
+      "photo": "images/brad.bmp",
+      "anecdotes": [
+        {
+          "id": "anecdote-1773099440418",
+          "story": "The dog left a pile on the floor of a new house under construction. Being a boy, my brother Mike picked it up with a sort of flexible stick, intending to fling it out into the woods. However, the flinging kind of backfired and the stick moved forward but the poop just kind of exploded all over Mike.",
+          "question": "Why was Uncle Mike called Big Stinky?",
+          "answers": [
+            "Just a cute name.",
+            "Hygienically challenged.",
+            "A dog incident.",
+            "Too much aftershave."
+          ],
+          "correct": "2"
+        }
+      ]
+    },
+    {
+      "id": "bob",
+      "name": "Tom",
+      "photo": "images/tom.bmp",
+      "anecdotes": [
+        {
+          "id": "anecdote-1773098977087",
+          "story": "Tom was so excited about the burgers that he forgot the plates entirely...",
+          "question": "What did Tom forget to bring to the picnic?",
+          "answers": [
+            "Plates",
+            "Drinks",
+            "Napkins",
+            "The grill"
+          ],
+          "correct": "0"
+        }
+      ]
+    },
+    {
+      "id": "member-1773099004761",
+      "name": "Emily",
+      "photo": "images/emily.bmp",	
+      "anecdotes": [
+        {
+          "id": "anecdote-1773099761000",
+          "story": "Emily was carrying a big pan of lasagna when the dog ran under feet. ",
+          "question": "What did Emily accidentally do at the reunion?",
+          "answers": [
+            "Burn the rolls.",
+            "Lose her keys.",
+            "Trip over the dog.",
+            "Call Uncle Bob 'Dad'."
+          ],
+          "correct": "2"
+        }
+      ]
+    },
+    {
+      "id": "member-1773099016157",
+      "name": "Kathryn",
+      "photo": "images/kathryn.bmp", 
+      "anecdotes": [
+        {
+          "id": "anecdote-1773099954025",
+          "story": "I was happily running home from the dance class and didn't see the two-by-four that was extending out of the back of the pick-up truck over the sidewalk. ",
+          "question": "Who clobbered Kathryn with a big stick?",
+          "answers": [
+            "The neighbor's truck",
+            "A gorilla at the zoo",
+            "Emily",
+            "The neighbor kid"
+          ],
+          "correct": "0"
+        }
+      ]
+    }
+  ]
+}
