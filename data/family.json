@@ -7,7 +7,7 @@
       "anecdotes": [
         {
           "id": "anecdote-1773329731920",
-          "story": "I went surfing for the only time ever and I borrowed a board from a neighbor. After paddling around a while I finally decided to go for it and I caught a wave. As I was riding the wave in I found that I was heading straight for a big coral outcropping. I thought I was going to destroy the guy's board, so I slipped into the water and tried to steer the board away from the coral. It's hard do steer a surfboard once it has decided to go. I hit the coral feet first. It was a bit painful, since coral is pretty sharp, and this particular coral was the home of a lot of sea urchins. I protected the surfboard and managed to get back to the beach where I started cleaning up several cuts and scrapes and carefully removing sea urchin spines. Personally I didn't find surfing to be all that fun.",
+          "story": "I went surfing for the only time ever and I borrowed a board from a neighbor. After paddling around a while I finally decided to go for it and I caught a wave. As I was riding the wave in I found that I was heading straight for a big coral outcropping. I thought I was going to destroy the guy's board, so I slipped into the water and tried to steer the board away from the coral. It's hard to steer a surfboard once it has decided to go. I hit the coral feet first. It was a bit painful, since coral is pretty sharp, and this particular coral was the home of a lot of sea urchins. I protected the surfboard and managed to get back to the beach where I started cleaning up several cuts and scrapes and carefully removing sea urchin spines. Personally I didn't find surfing to be all that fun.",
           "question": "As a teenager living right by the beach I spent a lot of time in the ocean. So, what was my experience with surfing?",
           "answers": [
             "I became the junior surfing champion of Puerto Rico.",
@@ -991,7 +991,7 @@
             "The Underhead",
             "McGillicuddy"
           ],
-          "correct": 0
+          "correct": 2
         }
       ]
     },
@@ -1243,6 +1243,25 @@
             "rolled over"
           ],
           "correct": 2
+        }
+      ]
+    },
+    {
+      "id": "member-1773362699599",
+      "name": "wildcard",
+      "photo": "images/wildcard.jpg",
+      "anecdotes": [
+        {
+          "id": "anecdote-1773362699599",
+          "story": "bean",
+          "question": "Move along now.",
+          "answers": [
+            " ",
+            " ",
+            " ",
+            " "
+          ],
+          "correct": 0
         }
       ]
     }
