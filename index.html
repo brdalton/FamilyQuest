@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Family Trivia Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="game">
+    <header id="header">
+      <div id="title-area">
+        <img id="title-image" src="images/WorldBlueName2.jpg" alt="">
+      </div>
+
+      <div id="controls-row">
+        <div id="controls">
+          <button id="play-btn">Play</button>
+          <button id="restart-btn">Restart Round</button>
+        </div>
+
+        <div id="round-area">
+          <div id="round-display"></div>
+          <button id="roundUp-btn" class="tinyBtn">▲</button>    <!-- &#x25B2 -->
+          <button id="roundDown-btn" class="tinyBtn">▼</button>  <!-- &#x25BC -->
+        </div>
+      </div>
+
+      <div id="status-indicators"></div>
+    </header>
+
+    <main>
+      <section id="grid-section">
+        <div id="grid"></div>
+      </section>
+
+      <section id="qa-section" class="hidden">
+        <div id="person-info">
+          <div id="person-text-block">
+            <div id="person-name"></div>
+            <p id="question-text"></p>
+          </div>
+
+          <img id="person-photo" src="" alt="">
+        </div>
+
+        <div id="question-area">
+          <!-- <p id="question-text"></p>  -->
+          <form id="answers-form"></form>
+          <div id="anecdote" class="hidden"></div>
+          <br>
+          <button id="continue-btn">Continue</button>
+        </div>
+      </section>
+
+      <!-- This section is in case I need it for Follies -->
+      <section id="folly-section" class="hidden">
+        <div id="folly-top">
+          <div id="folly-title"></div>
+          <img id="folly-image" src="" alt="">
+        </div>
+
+        <div id="folly-body">
+          <p id="folly-text"></p>
+          <button id="continue-folly-btn">Continue</button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div id="round-ended-modal" class="modal hidden">
+    <div class="modal-content">
+      <h2>Round Ended</h2>
+      <p id="round-ended-message">Your message goes here.</p>
+      <button id="round-ended-ok">OK</button>
+    </div>
+  </div>  
+  
+  <audio id="sound-correct" src="sounds/correct.mp3"></audio>
+  <audio id="sound-incorrect" src="sounds/incorrect.mp3"></audio>
+  <audio id="sound-beaned" src="sounds/Aww.mp3"></audio>
+  <audio id="sound-folly" src="sounds/shortHarp.mp3"></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
