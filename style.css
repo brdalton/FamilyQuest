@@ -1,0 +1,298 @@
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #f5f5f5;
+}
+
+#game {
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; 
+  padding: 10px;
+  background: #ffffff;
+  border-bottom: 2px solid #ddd;
+  border-radius: 4px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+#title-area {
+  background-color: #98cafd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 186px;        /* matches your image height */
+  overflow: hidden;     /* keeps layout tidy */
+}
+
+#title-image {
+  max-width: 569px;     /* never exceed original width */
+  width: 100%;          /* shrink proportionally when needed */
+  height: auto;         /* maintain aspect ratio */
+}
+
+#round-display {
+  font-weight: bold; 
+}
+
+#controls-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#controls {
+  display: flex;
+  gap: 8px;
+}
+
+#round-area {
+  display: flex;
+  gap: 4px;
+}
+
+.tinyBtn {
+  /* color: white; */
+  padding: 2px;
+  min-width: 25px;
+}
+
+#status-indicators {
+  display: flex;
+  gap: 4px;
+}
+
+.status-square {
+  width: 16px;
+  height: 16px;
+}
+
+.status-square.correct {
+  background: #4caf50;
+}
+
+.status-square.incorrect {
+  background: #f44336;
+}
+
+main {
+  margin-top: 10px;
+}
+
+#grid-section {
+  transition: transform 0.3s ease;
+  /* justify-content: center; */
+  background: #ffffff;
+  border-bottom: 2px solid #ddd;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+#grid {
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.grid-item {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+}
+
+.grid-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.grid-item.disabled {
+  cursor: default;
+  /* opacity: 0.6; */
+}
+
+.color-square {
+  width: 100%;
+  height: 100%;
+}
+
+.hidden {
+  display: none;
+}
+
+#qa-section {
+  margin-top: 5px;
+  padding: 10px;
+  background: #ffffff;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+#person-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;  /* added to allow text to grow vertically */
+  gap: 12px;  /* added for some unknown reason */
+}
+
+#person-name {
+  font-size: 2.0rem;
+  font-weight: bold;
+}
+
+#person-text-block {
+  flex: 1;              /* allows text to take all available space */
+  min-width: 0;         /* required for proper wrapping in flexbox */
+  padding-top: 20px;
+}
+
+#person-photo {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.sad-sprite {
+  width: 100px;
+  height: 100px;
+  background-image: url("images/BlueFaces.png"); /* or .png if you convert */
+  background-size: 800px 100px; /* 8 frames × 100px = 800px width, 100px height */
+  background-repeat: no-repeat;
+  border-radius: 4px;
+  display: block;
+}
+
+#question-area {
+  margin-top: 10px;
+}
+
+#question-text {
+  margin-top: 35px;
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+#answers-form {
+  /* margin-top: 0px;  */
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.answer-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#anecdote {
+  margin-top: 0px;
+  /* padding-top: 10px; */
+  /* border-top: 1px solid #ddd; */
+}
+/* This Folly stuff is an experiment to add a new section */
+#folly-section {
+  margin-top: 15px;
+  padding: 10px;
+  background: #ffffff;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+#folly-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+#folly-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+#folly-image {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+#folly-body {
+  margin-top: 10px;
+}
+/* End of Message stuff */
+
+button {
+  padding: 10px 12px;
+  min-width: 150px;
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  border: 1px solid #888;
+  background: #98CAFD;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #6db6ff;
+}
+
+button:disabled,
+button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  opacity: 1;
+  transition: opacity 0.25s ease;
+}
+
+.modal.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modal-content {
+  background: white;
+  padding: 24px 32px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  text-align: center;
+  max-width: 320px;
+}
+
+.modal-content button {
+  margin-top: 16px;
+  padding: 10px 20px;
+  border: none;
+  background: #4a7aff;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.modal-content button:hover {
+  background: #3a63d6;
+}
