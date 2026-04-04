@@ -256,7 +256,7 @@ function showQAForPerson(person, anecdote) {
   anecdoteEl.textContent = anecdote.story;
   anecdoteEl.classList.add("hidden");
   
-  if (person.name == "wildcard") {
+  if (person.name.startsWith("wildcard")) {
     soundBeaned.play();  //play sound
     personNameEl.textContent = "You've been Beaned!";
     setRevealedType(person, "photo");
