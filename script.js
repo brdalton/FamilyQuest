@@ -231,7 +231,7 @@ function showQAForPerson(person, anecdote) {
   disableTopButtons();
 
   //here is where we set how often to do Follies (0.15 percent)
-  if (Math.random() < 0.15 && follyPrompts.length > 0 && !follyFlag) {
+  if (Math.random() < 0.85 && follyPrompts.length > 0 && !follyFlag) {
     follyFlag = 1;
     showFolly(person, anecdote);  
     return;
