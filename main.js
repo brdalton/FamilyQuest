@@ -18,7 +18,17 @@ async function boot() {
 
   // 2. Load JSON from Supabase Storage
   const familyJson = await loadJsonFromSupabase('json', `${USER_ID}/family.json`);
-  const follyJson = await loadJsonFromSupabase('json', `${USER_ID}/folly.json`);
+  //const follyJson = await loadJsonFromSupabase('json', `${USER_ID}/folly.json`);
+
+  //extract "follies" person if it exists
+  const folliesPerson = familyJson.family.find(p => p.name === "follies");
+  const follyJson = {
+    //prompts: folliesPerson ? folliesPerson.anecdotes.map(a => a.question) : []
+    anecdotes: folliesPerson ? folliesPerson.anecdotes : []
+  };
+
+  // Remove follies from the family array
+  familyJson.family = familyJson.family.filter(p => p.name !== "follies");
 
   // 3. Build list of filenames only
   const filenames = familyJson.family.map(p => p.photo);
@@ -55,13 +65,14 @@ boot();
 // -------------------------------
 
 async function loadJsonFromSupabase(bucket, path) {
+  console.log("We're in loadJsonFromSupabase");
   const { data, error } = await supabase
     .storage
     .from(bucket)
-    .download(path);
+    .download(`${path}?cacheBust=${Date.now()}`);
 
   if (error) throw error;
-
+  console.log("Just after throw error");
   const text = await data.text();
   return JSON.parse(text);
 }

@@ -33,25 +33,14 @@ const soundIncorrect = document.getElementById("sound-incorrect");
 const soundBeaned = document.getElementById("sound-beaned");
 const soundFolly = document.getElementById("sound-folly");
 
-/* init();
-
-async function init() {
-  await loadData();
-  await loadFollies();
-  getMaxAnecdotes();
-  loadRound();
-  updateRoundDisplay();
-  buildInitialGrid();
-  attachEvents();
-  restartBtn.hidden = true;
-}*/
+/* init(); */
 
 export function init(familyJson, follyJson, images) {
-  // Replace your loadData() and loadFollies() with:
   familyData = familyJson.family;
-  follyPrompts = follyJson.prompts;
+  //follyPrompts = follyJson.prompts;
+  follyPrompts = follyJson.anecdotes || [];
   loadedImages = images; // keyed by filename
-  // Then run the rest of your existing init() logic:
+ 
   getMaxAnecdotes();
   loadRound();
   updateRoundDisplay();
@@ -60,6 +49,7 @@ export function init(familyJson, follyJson, images) {
   restartBtn.hidden = true;
 }
 
+/*
 async function loadData() {
   const res = await fetch(DATA_URL);
   const json = await res.json();
@@ -75,7 +65,7 @@ async function loadFollies() {
     follyPrompts = [];
   }
 
-}
+} */
 
 //find the largest number of stories anyone has
 function getMaxAnecdotes() { 
@@ -243,7 +233,7 @@ function showQAForPerson(person, anecdote) {
   //here is where we set how often to do Follies (0.15 percent)
   if (Math.random() < 0.15 && follyPrompts.length > 0 && !follyFlag) {
     follyFlag = 1;
-    showFolly();  
+    showFolly(person, anecdote);  
     return;
   }
   follyFlag = 0;
@@ -258,7 +248,8 @@ function showQAForPerson(person, anecdote) {
   
   if (person.name.startsWith("wildcard")) {
     soundBeaned.play();  //play sound
-    personNameEl.textContent = "You've been Beaned!";
+    //personNameEl.textContent = "You've been Beaned!";
+    personNameEl.textContent = anecdote.story;
     setRevealedType(person, "photo");
   }
   else { 
@@ -268,7 +259,7 @@ function showQAForPerson(person, anecdote) {
   } 
 }
 
-function showFolly() {
+/*function showFolly() {
   soundFolly.play(); //play sound
   promptIdx = Math.floor(Math.random() * follyPrompts.length);
   //alert("Folly " + promptIdx);
@@ -278,7 +269,30 @@ function showFolly() {
   anecdoteEl.textContent = "";
   continueBtn.classList.remove("hidden");
   //follyFlag = 1;
+}*/
+
+function showFolly(person, anecdote) {
+  soundFolly.play();
+
+  // Pick a random folly anecdote
+  const idx = Math.floor(Math.random() * follyPrompts.length);
+  const folly = follyPrompts[idx];
+
+  // Use the follies photo if it was preloaded
+  const folliesPhoto = loadedImages["follies.jpg"] || loadedImages["folly.jpg"];
+
+  if (folliesPhoto) {
+    personPhotoEl.src = folliesPhoto.src;
+  } else {
+    personPhotoEl.src = "images/folly.jpg"; // fallback
+  }
+
+  personNameEl.textContent = folly.story; //"Family Follies!";
+  questionTextEl.textContent = folly.question || ""; //follyPrompts[promptIdx];
+  anecdoteEl.textContent = "";
+  continueBtn.classList.remove("hidden");
 }
+
 
 function buildAnswers(anecdote) {
   answersForm.innerHTML = "";
