@@ -246,7 +246,7 @@ function showQAForPerson(person, anecdote) {
   anecdoteEl.textContent = anecdote.story;
   anecdoteEl.classList.add("hidden");
   
-  if (person.name.startsWith("wildcard")) {
+  if (person.name.toLowerCase().startsWith("wildcard")) {
     soundBeaned.play();  //play sound
     //personNameEl.textContent = "You've been Beaned!";
     personNameEl.textContent = anecdote.story;
