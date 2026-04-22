@@ -49,27 +49,15 @@ export function init(familyJson, follyJson, images) {
   restartBtn.hidden = true;
 }
 
-/*
-async function loadData() {
-  const res = await fetch(DATA_URL);
-  const json = await res.json();
-  familyData = json.family || [];
-}
-
-async function loadFollies() {
-  try {
-    const res = await fetch(FOLLIES_URL);
-    const json = await res.json();
-    follyPrompts = json.prompts || [];
-  } catch (e) {
-    follyPrompts = [];
-  }
-
-} */
-
 //find the largest number of stories anyone has
 function getMaxAnecdotes() { 
-  maxAnecdotes = Math.max(...familyData.map(p => p.anecdotes.length));
+  const validMembers = familyData.filter(p =>
+    !p.name.startsWith("wildcard") &&
+    p.name !== "follies"
+  );
+  maxAnecdotes = validMembers.length
+    ? Math.max(...validMembers.map(p => p.anecdotes.length))
+    : 0;  
   //alert("maxAnecdotes = " + maxAnecdotes);
 }
 
@@ -231,7 +219,7 @@ function showQAForPerson(person, anecdote) {
   disableTopButtons();
 
   //here is where we set how often to do Follies (0.15 percent)
-  if (Math.random() < 0.85 && follyPrompts.length > 0 && !follyFlag) {
+  if (Math.random() < 0.15 && follyPrompts.length > 0 && !follyFlag) {
     follyFlag = 1;
     showFolly(person, anecdote);  
     return;
@@ -246,7 +234,7 @@ function showQAForPerson(person, anecdote) {
   anecdoteEl.textContent = anecdote.story;
   anecdoteEl.classList.add("hidden");
   
-  if (person.name.startsWith("wildcard")) {
+  if (person.name.toLowerCase().startsWith("wildcard")) {
     soundBeaned.play();  //play sound
     //personNameEl.textContent = "You've been Beaned!";
     personNameEl.textContent = anecdote.story;
