@@ -7,14 +7,14 @@ body {
 #game {
   max-width: 1220px;
   margin: 0 auto;
-  padding: 10px;
+  padding: 0px;
 }
 
 header {
   display: flex;
   flex-direction: column;
   gap: 8px; 
-  padding: 10px;
+  padding: 0px;
   background: #ffffff;
   border-bottom: 2px solid #ddd;
   border-radius: 4px;
@@ -46,6 +46,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 0px 20px;
 }
 
 #controls {
@@ -197,12 +198,12 @@ main {
   gap: 6px;
 }
 
-#anecdote {
+#card {
   margin-top: 0px;
   /* padding-top: 10px; */
   /* border-top: 1px solid #ddd; */
 }
-/* This Folly stuff is an experiment to add a new section */
+/* This Folly stuff is an experiment to add a new section 
 #folly-section {
   margin-top: 15px;
   padding: 10px;
@@ -232,12 +233,12 @@ main {
 
 #folly-body {
   margin-top: 10px;
-}
+}*/
 /* End of Message stuff */
 
 button {
   padding: 10px 12px;
-  min-width: 150px;
+  min-width: 125px;
   color: white;
   font-weight: bold;
   border-radius: 8px;

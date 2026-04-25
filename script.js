@@ -5,8 +5,8 @@ const STORAGE_ROUND_KEY = "familyTrivia_round";
 let familyData = [];
 let roundNumber = 0;
 let currentPerson = null;
-let currentAnecdote = null;
-let maxAnecdotes = 0;
+let currentCard = null;
+let maxCards = 0;
 let gridState = []; // { id, revealedType: 'none'|'photo'|'sad' }
 let follyPrompts = [];
 let follyFlag = 0;
@@ -25,7 +25,7 @@ const personNameEl = document.getElementById("person-name");
 const personPhotoEl = document.getElementById("person-photo");
 const questionTextEl = document.getElementById("question-text");
 const answersForm = document.getElementById("answers-form");
-const anecdoteEl = document.getElementById("anecdote");
+const cardEl = document.getElementById("card");
 const continueBtn = document.getElementById("continue-btn");
 const statusIndicators = document.getElementById("status-indicators");
 const soundCorrect = document.getElementById("sound-correct");
@@ -38,10 +38,10 @@ const soundFolly = document.getElementById("sound-folly");
 export function init(familyJson, follyJson, images) {
   familyData = familyJson.family;
   //follyPrompts = follyJson.prompts;
-  follyPrompts = follyJson.anecdotes || [];
+  follyPrompts = follyJson.cards || [];
   loadedImages = images; // keyed by filename
  
-  getMaxAnecdotes();
+  getMaxCards();
   loadRound();
   updateRoundDisplay();
   buildInitialGrid();
@@ -50,15 +50,15 @@ export function init(familyJson, follyJson, images) {
 }
 
 //find the largest number of stories anyone has
-function getMaxAnecdotes() { 
+function getMaxCards() { 
   const validMembers = familyData.filter(p =>
     !p.name.startsWith("wildcard") &&
     p.name !== "follies"
   );
-  maxAnecdotes = validMembers.length
-    ? Math.max(...validMembers.map(p => p.anecdotes.length))
+  maxCards = validMembers.length
+    ? Math.max(...validMembers.map(p => p.cards.length))
     : 0;  
-  //alert("maxAnecdotes = " + maxAnecdotes);
+  //alert("maxCards = " + maxCards);
 }
 
 //get the round number saved in local storage in the browser
@@ -74,7 +74,7 @@ function saveRound() {
 
 function nextRound(step) {
   if (roundNumber <= 0 && step == -1) return;
-  if (roundNumber >= maxAnecdotes-1 && step == 1) roundNumber = -1;
+  if (roundNumber >= maxCards-1 && step == 1) roundNumber = -1;
   roundNumber += step;
   saveRound();
   updateRoundDisplay();
@@ -92,7 +92,7 @@ function resetRound() {
 
 function updateRoundDisplay() {
   const currentRound = roundNumber + 1;
-  const totalRounds = maxAnecdotes;
+  const totalRounds = maxCards;
 
   headerRound.textContent = `Round: ${currentRound} of ${totalRounds}`;
 }
@@ -183,9 +183,9 @@ function onGridItemClick(e) {
   if (!stateEntry || stateEntry.revealedType !== "none") return;
 
   currentPerson = getPersonById(id);
-  currentAnecdote = getAnecdoteForCurrentRound(currentPerson);
+  currentCard = getCardForCurrentRound(currentPerson);
 
-  showQAForPerson(currentPerson, currentAnecdote);
+  showQAForPerson(currentPerson, currentCard);
 
   // slide grid up (visual cue)
   //gridSection.style.transform = "translateY(-10px)";
@@ -214,14 +214,14 @@ function enableTopButtons() {  //Enable the top buttons while the Grid section i
   roundDownBtn.classList.remove("disabled");
 }
 
-function showQAForPerson(person, anecdote) {
+function showQAForPerson(person, card) {
   qaSection.classList.remove("hidden");
   disableTopButtons();
 
   //here is where we set how often to do Follies (0.15 percent)
   if (Math.random() < 0.15 && follyPrompts.length > 0 && !follyFlag) {
     follyFlag = 1;
-    showFolly(person, anecdote);  
+    showFolly(person, card);  
     return;
   }
   follyFlag = 0;
@@ -230,20 +230,20 @@ function showQAForPerson(person, anecdote) {
   personPhotoEl.src = loadedImages[person.photo].src;
 
   personPhotoEl.alt = person.name;
-  questionTextEl.textContent = anecdote.question;
-  anecdoteEl.textContent = anecdote.story;
-  anecdoteEl.classList.add("hidden");
+  questionTextEl.textContent = card.question;
+  cardEl.textContent = card.story;
+  cardEl.classList.add("hidden");
   
   if (person.name.toLowerCase().startsWith("wildcard")) {
     soundBeaned.play();  //play sound
     //personNameEl.textContent = "You've been Beaned!";
-    personNameEl.textContent = anecdote.story;
+    personNameEl.textContent = card.story;
     setRevealedType(person, "photo");
   }
   else { 
     personNameEl.textContent = person.name;
     continueBtn.classList.add("hidden");
-    buildAnswers(anecdote);
+    buildAnswers(card);
   } 
 }
 
@@ -254,15 +254,15 @@ function showQAForPerson(person, anecdote) {
   personPhotoEl.src = "images/folly.jpg";
   personNameEl.textContent = "Family Follies!";
   questionTextEl.textContent = follyPrompts[promptIdx];
-  anecdoteEl.textContent = "";
+  cardEl.textContent = "";
   continueBtn.classList.remove("hidden");
   //follyFlag = 1;
 }*/
 
-function showFolly(person, anecdote) {
+function showFolly(person, card) {
   soundFolly.play();
 
-  // Pick a random folly anecdote
+  // Pick a random folly card
   const idx = Math.floor(Math.random() * follyPrompts.length);
   const folly = follyPrompts[idx];
 
@@ -277,15 +277,15 @@ function showFolly(person, anecdote) {
 
   personNameEl.textContent = folly.story; //"Family Follies!";
   questionTextEl.textContent = folly.question || ""; //follyPrompts[promptIdx];
-  anecdoteEl.textContent = "";
+  cardEl.textContent = "";
   continueBtn.classList.remove("hidden");
 }
 
 
-function buildAnswers(anecdote) {
+function buildAnswers(card) {
   answersForm.innerHTML = "";
 
-  anecdote.answers.forEach((answer, idx) => {
+  card.answers.forEach((answer, idx) => {
     const label = document.createElement("label");
     label.className = "answer-option";
 
@@ -310,7 +310,7 @@ function onAnswerSelected() {
   if (!selected) return;
 
   const chosenIndex = parseInt(selected.value, 10);
-  const correctIndex = currentAnecdote.correct;
+  const correctIndex = currentCard.correct;
 
   const isCorrect = chosenIndex === correctIndex;
   showResult(isCorrect);
@@ -331,9 +331,9 @@ function showResult(isCorrect) {
   statusIndicators.appendChild(sq);
   */
 
-  // show anecdote, hide answers
+  // show card, hide answers
   answersForm.innerHTML = "";
-  anecdoteEl.classList.remove("hidden");
+  cardEl.classList.remove("hidden");
   continueBtn.classList.remove("hidden");
 
   /*// update grid state for this person
@@ -359,7 +359,7 @@ function onContinue() {
   //gridSection.style.transform = "translateY(0)";
   if (follyFlag) {
     //follyFlag = 0;
-    showQAForPerson(currentPerson, currentAnecdote);
+    showQAForPerson(currentPerson, currentCard);
     return;
   }
 
@@ -438,18 +438,18 @@ function getPersonById(id) {
   return familyData.find(p => p.id === id);
 }
 
-function getAnecdoteForCurrentRound(person) {
-  const anecdotes = person.anecdotes || [];
-  if (anecdotes.length === 0) {
+function getCardForCurrentRound(person) {
+  const cards = person.cards || [];
+  if (cards.length === 0) {
     return {
-      question: "No anecdotes defined.",
+      question: "No cards defined.",
       answers: ["", "", "", ""],
       correct: 0,
       story: ""
     };
   }
-  const index = roundNumber % anecdotes.length;
-  return anecdotes[index];
+  const index = roundNumber % cards.length;
+  return cards[index];
 }
 
 function shuffleArray(arr) {

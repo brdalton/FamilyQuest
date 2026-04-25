@@ -23,8 +23,8 @@ async function boot() {
   //extract "follies" person if it exists
   const folliesPerson = familyJson.family.find(p => p.name === "follies");
   const follyJson = {
-    //prompts: folliesPerson ? folliesPerson.anecdotes.map(a => a.question) : []
-    anecdotes: folliesPerson ? folliesPerson.anecdotes : []
+    //prompts: folliesPerson ? folliesPerson.cards.map(a => a.question) : []
+    cards: folliesPerson ? folliesPerson.cards : []
   };
 
   // Remove follies from the family array
